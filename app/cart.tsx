@@ -1,5 +1,5 @@
 import { useCart } from "@/store/store.zus";
-import { Text, FlatList, Pressable, Alert } from "react-native";
+import { Text, FlatList, Pressable, Alert, View } from "react-native";
 import { HStack } from "@/components/ui/hstack";
 import { VStack } from "@/components/ui/vstack";
 import { Image } from "@/components/ui/image";
@@ -9,7 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import { createOrders } from "@/api/orders";
 import { useAuth } from "@/store/authStore";
 import { Icon } from "@/components/ui/icon";
-import { Trash2Icon } from "lucide-react-native";
+import { Plus, Minus, Trash2Icon } from "lucide-react-native";
 export default function CartScreen() {
   const items = useCart((state) => state.items);
   const DataCartDelete = useCart((state) => state.resetItems);
@@ -48,6 +48,14 @@ export default function CartScreen() {
     token();
   };
 
+  const handleIncrement = () => {
+    //
+  };
+
+  const handleDecrement = () => {
+    //
+  };
+
   if (items.length === 0) {
     return <Redirect href={"/"} />;
   }
@@ -75,6 +83,28 @@ export default function CartScreen() {
               <Text className="font-bold">{item.product.name}</Text>
               <Text>${item.product.price}</Text>
               <Text>Qty: {item.quantity}</Text>
+              {/* icon increment and decrement */}
+              {/* Qty dan Ikon Increment/Decrement */}
+              <View className="flex flex-row mt-5 items-center  w-full ">
+                <Pressable>
+                  <Icon
+                    as={Minus}
+                    className="text-white border rounded bg-gray-500 p-2"
+                  />
+                </Pressable>
+                <Text
+                  className="font-bold text-center"
+                  style={{ width: 40, textAlign: "center" }} // Lebar tetap untuk teks kuantitas
+                >
+                  {item.quantity}
+                </Text>
+                <Pressable>
+                  <Icon
+                    as={Plus}
+                    className="text-white border rounded bg-gray-500 p-2"
+                  />
+                </Pressable>
+              </View>
             </VStack>
           </HStack>
 
